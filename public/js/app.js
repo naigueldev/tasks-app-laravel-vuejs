@@ -37474,6 +37474,7 @@ var render = function() {
           _c(
             "form",
             {
+              staticClass: "mb-5",
               on: {
                 submit: function($event) {
                   $event.preventDefault()

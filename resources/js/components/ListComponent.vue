@@ -13,7 +13,7 @@
       <div class="col-md-6 mx-auto">
         <h1 class="text-center">Tasks App</h1>
 
-        <form v-on:submit.prevent="addNewTask">
+        <form v-on:submit.prevent="addNewTask" class="mb-5">
           <label for="tasknameinput">Task Name</label>
           <input
             v-model="taskname"
