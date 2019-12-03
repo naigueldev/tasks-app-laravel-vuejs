@@ -37592,11 +37592,17 @@ var staticRenderFns = [
       "div",
       { staticClass: "mb-5 d-flex justify-content-center align-items-center" },
       [
-        _c("img", { attrs: { src: "images/laravel.svg", width: "400" } }),
+        _c("img", {
+          staticClass: "img-laravel",
+          attrs: { src: "images/laravel.svg", width: "400" }
+        }),
         _vm._v(" "),
         _c("span", { staticClass: "plus-images mx-4" }, [_vm._v("+")]),
         _vm._v(" "),
-        _c("img", { attrs: { src: "/images/vuejs.png", width: "110" } })
+        _c("img", {
+          staticClass: "img-vue",
+          attrs: { src: "/images/vuejs.png", width: "110" }
+        })
       ]
     )
   }

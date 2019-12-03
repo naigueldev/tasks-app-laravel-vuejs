@@ -1,3 +1,14 @@
 span.plus-images {
     font-size: 60px;
 }
+@media (max-width: 800px){
+    .img-laravel{
+        width: 40%;
+    }
+    .img-vue{
+        width: 15%;
+    }
+    span.plus-images {
+        font-size: 40px;
+    }
+}

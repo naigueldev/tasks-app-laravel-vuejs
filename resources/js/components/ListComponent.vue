@@ -3,10 +3,10 @@
     <div class="mb-5 d-flex justify-content-center align-items-center">
       <img
         src="images/laravel.svg"
-        width="400"
+        width="400" class="img-laravel"
       />
       <span class="plus-images mx-4">+</span>
-      <img src="/images/vuejs.png" width="110" />
+      <img src="/images/vuejs.png" width="110" class="img-vue" />
     </div>
 
     <div class="row">
