@@ -2,7 +2,7 @@
   <div id="todo-list" class="container py-5">
     <div class="row">
       <div class="col-md-6 mx-auto">
-        <h1 class="text-center">TODO List App</h1>
+        <h1 class="text-center">Tasks App</h1>
         <form v-on:submit.prevent="addNewTask">
           <label for="tasknameinput">Task Name</label>
           <input
@@ -82,6 +82,35 @@ export default {
                 console.log(res)
             }
         ).catch( err => {
+            console.log(err)
+        })
+    },
+    editTask(title, id) {
+        this.id = id
+        this.taskname = title
+        this.isEdit = true
+    },
+    updateTask() {
+        axios.put(
+            `/api/task/${this.id}`,
+            { title: this.taskname 
+        }).then( res => {
+            this.taskname = ''
+            this.isEdit = false
+            this.getTasks()
+            console.log(res)
+        }).catch( err => {
+            console.log(err)
+        })
+    },
+    deleteTask(id) {
+        axios.delete(
+            `/api/task/${id}`
+        ).then( res => {
+            this.taskname = ''
+            this.getTasks()
+            console.log(res)
+        }).catch( err => {
             console.log(err)
         })
     }

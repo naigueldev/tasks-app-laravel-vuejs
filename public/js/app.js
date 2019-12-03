@@ -1958,6 +1958,40 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    editTask: function editTask(title, id) {
+      this.id = id;
+      this.taskname = title;
+      this.isEdit = true;
+    },
+    updateTask: function updateTask() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/task/".concat(this.id), {
+        title: this.taskname
+      }).then(function (res) {
+        _this3.taskname = '';
+        _this3.isEdit = false;
+
+        _this3.getTasks();
+
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    deleteTask: function deleteTask(id) {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/task/".concat(id)).then(function (res) {
+        _this4.taskname = '';
+
+        _this4.getTasks();
+
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
@@ -37409,7 +37443,7 @@ var render = function() {
     [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6 mx-auto" }, [
-          _c("h1", { staticClass: "text-center" }, [_vm._v("TODO List App")]),
+          _c("h1", { staticClass: "text-center" }, [_vm._v("Tasks App")]),
           _vm._v(" "),
           _c(
             "form",
