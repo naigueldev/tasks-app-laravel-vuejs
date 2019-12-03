@@ -1917,6 +1917,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1929,6 +1930,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getTasks();
+    console.log("apiUrl = " + this.apiGet);
+    console.log("apiAll = " + this.apiAll);
+  },
+  computed: {
+    apiGet: function apiGet() {
+      return "/api/tasks";
+    },
+    apiAll: function apiAll() {
+      return "/api/task";
+    },
+    disabledSubmit: function disabledSubmit() {
+      return !(this.taskname.length > 3);
+    }
   },
   methods: {
     getTasks: function getTasks() {
@@ -1936,7 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: "GET",
-        url: "/api/tasks"
+        url: this.apiGet
       }).then(function (result) {
         console.log(result.data);
         _this.todos = result.data;
@@ -1947,7 +1961,7 @@ __webpack_require__.r(__webpack_exports__);
     addNewTask: function addNewTask() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/task', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.apiAll, {
         title: this.taskname
       }).then(function (res) {
         _this2.taskname = '';
@@ -1967,7 +1981,7 @@ __webpack_require__.r(__webpack_exports__);
     updateTask: function updateTask() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/task/".concat(this.id), {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("".concat(this.apiAll, "/").concat(this.id), {
         title: this.taskname
       }).then(function (res) {
         _this3.taskname = '';
@@ -1983,7 +1997,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteTask: function deleteTask(id) {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/task/".concat(id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(this.apiAll, "/").concat(id)).then(function (res) {
         _this4.taskname = '';
 
         _this4.getTasks();
@@ -37491,7 +37505,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-success btn-block mt-3",
-                      attrs: { type: "submit" }
+                      attrs: { type: "submit", disabled: _vm.disabledSubmit }
                     },
                     [_vm._v("Submit")]
                   )
@@ -37520,11 +37534,12 @@ var render = function() {
                   _vm._v(_vm._s(todo.title))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-right" }, [
+                _c("td", { staticClass: "text-right d-flex" }, [
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-info color-white",
+                      staticClass:
+                        "h-100 col-6 btn-xs btn-info color-white mr-2",
                       on: {
                         click: function($event) {
                           return _vm.editTask(todo.title, todo.id)
@@ -37537,7 +37552,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-danger",
+                      staticClass: "col-6 btn-xs btn-danger px-1",
                       on: {
                         click: function($event) {
                           return _vm.deleteTask(todo.id)

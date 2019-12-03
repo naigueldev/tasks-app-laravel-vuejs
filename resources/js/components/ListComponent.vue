@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-6 mx-auto">
         <h1 class="text-center">Tasks App</h1>
+        
         <form v-on:submit.prevent="addNewTask">
           <label for="tasknameinput">Task Name</label>
           <input
@@ -15,7 +16,7 @@
           <button
             v-if="this.isEdit == false"
             type="submit"
-            class="btn btn-success btn-block mt-3"
+            class="btn btn-success btn-block mt-3" :disabled="disabledSubmit"
           >Submit</button>
           <button
             v-else
@@ -28,12 +29,12 @@
         <table class="table">
           <tr v-for="(todo) in todos" v-bind:key="todo.id" v-bind:title="todo.title">
             <td class="text-left">{{todo.title}}</td>
-            <td class="text-right">
+            <td class="text-right d-flex">
               <button
                 v-on:click="editTask(todo.title, todo.id)"
-                class="btn btn-info color-white"
+                class="h-100 col-6 btn-xs btn-info color-white mr-2"
               >Edit</button>
-              <button v-on:click="deleteTask(todo.id)" class="btn btn-danger">Delete</button>
+              <button v-on:click="deleteTask(todo.id)" class="col-6 btn-xs btn-danger px-1">Delete</button>
             </td>
           </tr>
         </table>
@@ -55,12 +56,25 @@ export default {
   },
   mounted() {
     this.getTasks();
+    console.log("apiUrl = "+this.apiGet)
+    console.log("apiAll = "+this.apiAll)
+  },
+  computed:{
+      apiGet() {
+          return "/api/tasks"
+      },
+      apiAll() {
+          return "/api/task"
+      },
+      disabledSubmit(){
+          return !(this.taskname.length > 3)
+      }
   },
   methods: {
     getTasks() {
       axios({
         method: "GET",
-        url: "/api/tasks"
+        url: this.apiGet
       }).then(
         result => {
           console.log(result.data);
@@ -73,7 +87,7 @@ export default {
     },
     addNewTask() {
         axios.post(
-            '/api/task',
+            this.apiAll,
             { title: this.taskname }
         ).then(
             res => {
@@ -92,7 +106,7 @@ export default {
     },
     updateTask() {
         axios.put(
-            `/api/task/${this.id}`,
+            `${this.apiAll}/${this.id}`,
             { title: this.taskname 
         }).then( res => {
             this.taskname = ''
@@ -105,7 +119,7 @@ export default {
     },
     deleteTask(id) {
         axios.delete(
-            `/api/task/${id}`
+            `${this.apiAll}/${id}`
         ).then( res => {
             this.taskname = ''
             this.getTasks()
