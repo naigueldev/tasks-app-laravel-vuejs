@@ -1918,6 +1918,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1964,7 +1974,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.apiAll, {
         title: this.taskname
       }).then(function (res) {
-        _this2.taskname = '';
+        _this2.taskname = "";
 
         _this2.getTasks();
 
@@ -1984,7 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("".concat(this.apiAll, "/").concat(this.id), {
         title: this.taskname
       }).then(function (res) {
-        _this3.taskname = '';
+        _this3.taskname = "";
         _this3.isEdit = false;
 
         _this3.getTasks();
@@ -1998,7 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(this.apiAll, "/").concat(id)).then(function (res) {
-        _this4.taskname = '';
+        _this4.taskname = "";
 
         _this4.getTasks();
 
@@ -37455,6 +37465,8 @@ var render = function() {
     "div",
     { staticClass: "container py-5", attrs: { id: "todo-list" } },
     [
+      _vm._m(0),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6 mx-auto" }, [
           _c("h1", { staticClass: "text-center" }, [_vm._v("Tasks App")]),
@@ -37571,7 +37583,24 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "mb-5 d-flex justify-content-center align-items-center" },
+      [
+        _c("img", { attrs: { src: "images/laravel.svg", width: "400" } }),
+        _vm._v(" "),
+        _c("span", { staticClass: "plus-images mx-4" }, [_vm._v("+")]),
+        _vm._v(" "),
+        _c("img", { attrs: { src: "/images/vuejs.png", width: "110" } })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

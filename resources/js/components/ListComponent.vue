@@ -1,9 +1,18 @@
 <template>
   <div id="todo-list" class="container py-5">
+    <div class="mb-5 d-flex justify-content-center align-items-center">
+      <img
+        src="images/laravel.svg"
+        width="400"
+      />
+      <span class="plus-images mx-4">+</span>
+      <img src="/images/vuejs.png" width="110" />
+    </div>
+
     <div class="row">
       <div class="col-md-6 mx-auto">
         <h1 class="text-center">Tasks App</h1>
-        
+
         <form v-on:submit.prevent="addNewTask">
           <label for="tasknameinput">Task Name</label>
           <input
@@ -16,7 +25,8 @@
           <button
             v-if="this.isEdit == false"
             type="submit"
-            class="btn btn-success btn-block mt-3" :disabled="disabledSubmit"
+            class="btn btn-success btn-block mt-3"
+            :disabled="disabledSubmit"
           >Submit</button>
           <button
             v-else
@@ -56,19 +66,19 @@ export default {
   },
   mounted() {
     this.getTasks();
-    console.log("apiUrl = "+this.apiGet)
-    console.log("apiAll = "+this.apiAll)
+    console.log("apiUrl = " + this.apiGet);
+    console.log("apiAll = " + this.apiAll);
   },
-  computed:{
-      apiGet() {
-          return "/api/tasks"
-      },
-      apiAll() {
-          return "/api/task"
-      },
-      disabledSubmit(){
-          return !(this.taskname.length > 3)
-      }
+  computed: {
+    apiGet() {
+      return "/api/tasks";
+    },
+    apiAll() {
+      return "/api/task";
+    },
+    disabledSubmit() {
+      return !(this.taskname.length > 3);
+    }
   },
   methods: {
     getTasks() {
@@ -81,52 +91,51 @@ export default {
           this.todos = result.data;
         },
         error => {
-            console.error(error)
+          console.error(error);
         }
-      )
+      );
     },
     addNewTask() {
-        axios.post(
-            this.apiAll,
-            { title: this.taskname }
-        ).then(
-            res => {
-                this.taskname = ''
-                this.getTasks()
-                console.log(res)
-            }
-        ).catch( err => {
-            console.log(err)
+      axios
+        .post(this.apiAll, { title: this.taskname })
+        .then(res => {
+          this.taskname = "";
+          this.getTasks();
+          console.log(res);
         })
+        .catch(err => {
+          console.log(err);
+        });
     },
     editTask(title, id) {
-        this.id = id
-        this.taskname = title
-        this.isEdit = true
+      this.id = id;
+      this.taskname = title;
+      this.isEdit = true;
     },
     updateTask() {
-        axios.put(
-            `${this.apiAll}/${this.id}`,
-            { title: this.taskname 
-        }).then( res => {
-            this.taskname = ''
-            this.isEdit = false
-            this.getTasks()
-            console.log(res)
-        }).catch( err => {
-            console.log(err)
+      axios
+        .put(`${this.apiAll}/${this.id}`, { title: this.taskname })
+        .then(res => {
+          this.taskname = "";
+          this.isEdit = false;
+          this.getTasks();
+          console.log(res);
         })
+        .catch(err => {
+          console.log(err);
+        });
     },
     deleteTask(id) {
-        axios.delete(
-            `${this.apiAll}/${id}`
-        ).then( res => {
-            this.taskname = ''
-            this.getTasks()
-            console.log(res)
-        }).catch( err => {
-            console.log(err)
+      axios
+        .delete(`${this.apiAll}/${id}`)
+        .then(res => {
+          this.taskname = "";
+          this.getTasks();
+          console.log(res);
         })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
