@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
 
 class TasksappController extends Controller
 {
@@ -14,7 +15,8 @@ class TasksappController extends Controller
 
     public function index()
     {
-        return view('tasksapp.index');
+        $user = User::find( auth()->id() );
+        return view('tasksapp.index', ['user' => $user]);
     }
 
    

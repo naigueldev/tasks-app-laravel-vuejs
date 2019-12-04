@@ -61,6 +61,10 @@ export default {
     user: {
       type: Number,
       required: true
+    },
+    token: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -69,7 +73,8 @@ export default {
       id: "",
       taskname: "",
       isEdit: false,
-      user_id: this.user
+      user_id: this.user,
+      token: this.token,
     };
   },
   mounted() {
@@ -86,6 +91,9 @@ export default {
     },
     disabledSubmit() {
       return !(this.taskname.length > 3);
+    },
+    token_param(){
+      return "?api_token="+this.token;
     }
   },
   methods: {
@@ -96,7 +104,7 @@ export default {
 
       axios({
         method: "GET",
-        url: this.apiGet,
+        url: this.apiGet+this.token_param,
         headers: auth
       }).then(
         result => {
@@ -112,7 +120,8 @@ export default {
       axios
         .post(this.apiAll, {
           title: this.taskname,
-          user_id: this.user_id
+          user_id: this.user_id,
+          api_token: this.token
         })
         .then(res => {
           this.taskname = "";
@@ -131,7 +140,8 @@ export default {
     updateTask() {
       axios
         .put(`${this.apiAll}/${this.id}`, {
-          title: this.taskname
+          title: this.taskname,
+          api_token: this.token
         })
         .then(res => {
           this.taskname = "";
@@ -145,7 +155,7 @@ export default {
     },
     deleteTask(id) {
       axios
-        .delete(`${this.apiAll}/${id}`)
+        .delete(`${this.apiAll}/${id}${this.token_param}`)
         .then(res => {
           this.taskname = "";
           this.getTasks();

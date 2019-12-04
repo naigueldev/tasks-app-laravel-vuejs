@@ -1901,6 +1901,10 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       type: Number,
       required: true
+    },
+    token: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
@@ -1909,7 +1913,8 @@ __webpack_require__.r(__webpack_exports__);
       id: "",
       taskname: "",
       isEdit: false,
-      user_id: this.user
+      user_id: this.user,
+      token: this.token
     };
   },
   mounted: function mounted() {
@@ -1926,6 +1931,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     disabledSubmit: function disabledSubmit() {
       return !(this.taskname.length > 3);
+    },
+    token_param: function token_param() {
+      return "?api_token=" + this.token;
     }
   },
   methods: {
@@ -1937,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: "GET",
-        url: this.apiGet,
+        url: this.apiGet + this.token_param,
         headers: auth
       }).then(function (result) {
         console.log(result.data);
@@ -1951,7 +1959,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.apiAll, {
         title: this.taskname,
-        user_id: this.user_id
+        user_id: this.user_id,
+        api_token: this.token
       }).then(function (res) {
         _this2.taskname = "";
 
@@ -1971,7 +1980,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("".concat(this.apiAll, "/").concat(this.id), {
-        title: this.taskname
+        title: this.taskname,
+        api_token: this.token
       }).then(function (res) {
         _this3.taskname = "";
         _this3.isEdit = false;
@@ -1986,7 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteTask: function deleteTask(id) {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(this.apiAll, "/").concat(id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(this.apiAll, "/").concat(id).concat(this.token_param)).then(function (res) {
         _this4.taskname = "";
 
         _this4.getTasks();
