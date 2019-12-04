@@ -7,7 +7,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 mx-auto">
+      <div class="col-md-6 mx-auto">
         <h1 class="text-center">Tasks App</h1>
 
         <form v-on:submit.prevent="addNewTask" class="mb-5">
