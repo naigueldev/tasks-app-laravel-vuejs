@@ -37400,7 +37400,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12 mx-auto" }, [
+        _c("div", { staticClass: "col-md-6 mx-auto" }, [
           _c("h1", { staticClass: "text-center" }, [_vm._v("Tasks App")]),
           _vm._v(" "),
           _c(
