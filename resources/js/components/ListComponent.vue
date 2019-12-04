@@ -1,20 +1,20 @@
 <template>
   <div id="todo-list" class="container py-5">
     <div class="mb-5 d-flex justify-content-center align-items-center">
-      <img
-        src="images/laravel.svg"
-        width="400" class="img-laravel"
-      />
+      <img src="images/laravel.svg" width="400" class="img-laravel" />
       <span class="plus-images mx-4">+</span>
       <img src="/images/vuejs.png" width="110" class="img-vue" />
     </div>
 
     <div class="row">
-      <div class="col-md-6 mx-auto">
+      <div class="col-md-12 mx-auto">
         <h1 class="text-center">Tasks App</h1>
 
         <form v-on:submit.prevent="addNewTask" class="mb-5">
           <label for="tasknameinput">Task Name</label>
+
+          <input v-model="user_id" type="hidden" />
+
           <input
             v-model="taskname"
             type="text"
@@ -55,13 +55,21 @@
 
 <script>
 import axios from "axios";
+
 export default {
+  props: {
+    user: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       todos: [],
       id: "",
       taskname: "",
-      isEdit: false
+      isEdit: false,
+      user_id: this.user
     };
   },
   mounted() {
@@ -82,9 +90,14 @@ export default {
   },
   methods: {
     getTasks() {
+      const auth = {
+        Authentication: this.user_id
+      }
+
       axios({
         method: "GET",
-        url: this.apiGet
+        url: this.apiGet,
+        headers: auth
       }).then(
         result => {
           console.log(result.data);
@@ -97,7 +110,10 @@ export default {
     },
     addNewTask() {
       axios
-        .post(this.apiAll, { title: this.taskname })
+        .post(this.apiAll, {
+          title: this.taskname,
+          user_id: this.user_id
+        })
         .then(res => {
           this.taskname = "";
           this.getTasks();
@@ -114,7 +130,9 @@ export default {
     },
     updateTask() {
       axios
-        .put(`${this.apiAll}/${this.id}`, { title: this.taskname })
+        .put(`${this.apiAll}/${this.id}`, {
+          title: this.taskname
+        })
         .then(res => {
           this.taskname = "";
           this.isEdit = false;

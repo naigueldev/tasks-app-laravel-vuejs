@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+    <h3>Welcome</h3>
+    <list-component></list-component>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
-        <link rel="stylesheet" href="{{ secure_asset('css/main.css') }}">
-    </head>
-    <body>
-      
-
-        <div id="app">
-            <list-component></list-component>
-        </div>
-
-
-
-    <script src="{{ secure_asset('js/app.js') }}"></script>
-    </body>
-</html>
+@endsection

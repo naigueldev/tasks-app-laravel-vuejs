@@ -9,10 +9,10 @@ use App\Task;
 class TaskController extends Controller
 {
 
-
-    public function index()
+    public function index(Request $request)
     {
-        return Task::all();
+        $user_id = $request->header('authentication');
+        return Task::where('user_id',$user_id)->get();
     }
 
     public function show($id)
